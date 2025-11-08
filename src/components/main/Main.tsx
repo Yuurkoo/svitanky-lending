@@ -20,7 +20,7 @@ function Main() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length)
-    }, 5000) // Автоматична зміна слайдів кожні 5 секунд
+    }, 7000) // Автоматична зміна слайдів кожні 5 секунд
 
     return () => clearInterval(timer)
   }, [])
@@ -332,10 +332,16 @@ function Main() {
                 id="custom-amount"
                 className="custom-amount-input"
                 placeholder="Введіть суму в грн"
+                min="0"
+                step="1"
                 value={customAmount}
                 onChange={(e) => {
-                  setCustomAmount(e.target.value)
-                  setSelectedAmount(null)
+                  const value = e.target.value
+                  // Забороняємо мінусові значення
+                  if (value === '' || (parseFloat(value) >= 0)) {
+                    setCustomAmount(value)
+                    setSelectedAmount(null)
+                  }
                 }}
               />
             </div>

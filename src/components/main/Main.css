@@ -30,7 +30,7 @@
   margin: 0 auto;
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .slider {
@@ -147,7 +147,7 @@
 }
 
 .dot.active {
-  background-color: #2a4a4a;
+  background-color: #fefe00;
   width: 32px;
   border-radius: 6px;
 }
@@ -214,6 +214,46 @@
   height: 10px;
   background-color: #fdcb5b;
   border-radius: 50%;
+  animation: pulseDot 2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(253, 203, 91, 0.7);
+}
+
+.home-block-list li:nth-child(1)::before {
+  animation-delay: 0s;
+}
+
+.home-block-list li:nth-child(2)::before {
+  animation-delay: 0.4s;
+}
+
+.home-block-list li:nth-child(3)::before {
+  animation-delay: 0.8s;
+}
+
+.home-block-list li:nth-child(4)::before {
+  animation-delay: 1.2s;
+}
+
+.home-block-list li:nth-child(5)::before {
+  animation-delay: 1.6s;
+}
+
+@keyframes pulseDot {
+  0% {
+    background-color: #fdcb5b;
+    box-shadow: 0 0 0 0 rgba(253, 203, 91, 0.7);
+    transform: scale(1);
+  }
+  50% {
+    background-color: #ffd700;
+    box-shadow: 0 0 0 4px rgba(253, 203, 91, 0);
+    transform: scale(1.2);
+  }
+  100% {
+    background-color: #fdcb5b;
+    box-shadow: 0 0 0 0 rgba(253, 203, 91, 0.7);
+    transform: scale(1);
+  }
 }
 
 /* Responsive design */
@@ -329,7 +369,8 @@
 .fundraising-section {
   width: 100%;
   padding: 5rem 2rem;
-  background-color: #f8fafc;
+  background-color: #e0f2f7;
+  background: linear-gradient(180deg, #e0f2f7 0%, #f0f9ff 100%);
   box-sizing: border-box;
 }
 
@@ -364,38 +405,67 @@
 
 .fundraising-card {
   background-color: #ffffff;
-  border: 2px solid #bfdbfe;
-  border-radius: 16px;
-  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 2.5rem;
   box-sizing: border-box;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.fundraising-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #fdcb5b 0%, #ffd700 50%, #fdcb5b 100%);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+  transform-origin: left;
+}
+
+.fundraising-card:hover::before {
+  transform: scaleX(1);
 }
 
 .fundraising-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  border-color: #66b2ff;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
 }
 
 .card-icon {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   background-color: #fdcb5b;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #fdcb5b 0%, #ffd700 100%);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
-  color: #1a1a1a;
+  margin-bottom: 1.75rem;
+  color: #1e3a8a;
+  box-shadow: 0 4px 12px rgba(253, 203, 91, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.fundraising-card:hover .card-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(253, 203, 91, 0.4);
 }
 
 .card-title {
-  font-size: 1.5rem;
+  font-size: 1.625rem;
   font-weight: 700;
   color: #1e3a8a;
-  margin: 0 0 1.25rem 0;
-  line-height: 1.4;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
 .card-description {
@@ -404,9 +474,13 @@
 
 .card-description p {
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.75;
   color: #475569;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 1rem 0;
+}
+
+.card-description p:first-child {
+  font-weight: 500;
 }
 
 .card-description p:last-child {
@@ -414,24 +488,33 @@
 }
 
 .card-benefits {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  margin-top: 2rem;
+  padding-top: 1.75rem;
+  border-top: 2px solid #e2e8f0;
+  background: linear-gradient(to bottom, rgba(224, 242, 247, 0.3), transparent);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0 0 20px 20px;
 }
 
 .benefits-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+  font-weight: 700;
   color: #1e3a8a;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .benefits-header svg {
   color: #66b2ff;
   flex-shrink: 0;
+  width: 18px;
+  height: 18px;
 }
 
 .benefits-list {
@@ -442,10 +525,10 @@
 
 .benefits-list li {
   font-size: 0.95rem;
-  line-height: 1.7;
-  color: #64748b;
-  margin: 0 0 0.5rem 0;
-  padding-left: 1.25rem;
+  line-height: 1.8;
+  color: #475569;
+  margin: 0 0 0.75rem 0;
+  padding-left: 1.5rem;
   position: relative;
 }
 
@@ -454,12 +537,15 @@
 }
 
 .benefits-list li::before {
-  content: '•';
+  content: '';
   position: absolute;
   left: 0;
-  color: #66b2ff;
-  font-weight: bold;
-  font-size: 1.2rem;
+  top: 0.5em;
+  width: 8px;
+  height: 8px;
+  background-color: #66b2ff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(102, 178, 255, 0.5);
 }
 
 /* Responsive для секції збору коштів */
@@ -483,7 +569,16 @@
   }
 
   .fundraising-card {
-    padding: 1.75rem;
+    padding: 2rem;
+    border-radius: 16px;
+  }
+
+  .card-benefits {
+    margin-left: -2rem;
+    margin-right: -2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: 0 0 16px 16px;
   }
 
   .card-title {
@@ -506,8 +601,16 @@
   }
 
   .fundraising-card {
-    padding: 1.5rem;
-    border-radius: 12px;
+    padding: 1.75rem;
+    border-radius: 16px;
+  }
+
+  .card-benefits {
+    margin-left: -1.75rem;
+    margin-right: -1.75rem;
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+    border-radius: 0 0 16px 16px;
   }
 
   .card-icon {
@@ -562,44 +665,114 @@
 
 .value-card {
   background-color: #ffffff;
-  border: 1px solid #bfdbfe;
-  border-radius: 12px;
-  padding: 2.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 3rem;
   box-sizing: border-box;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.value-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #fdcb5b 0%, #ffd700 50%, #fdcb5b 100%);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+  transform-origin: left;
+}
+
+.value-card:hover::before {
+  transform: scaleX(1);
 }
 
 .value-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  border-color: #66b2ff;
+  transform: translateY(-8px);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(102, 178, 255, 0.2);
+  border-color: #cbd5e1;
 }
 
 .value-icon {
-  width: 64px;
-  height: 64px;
-  background-color: #fdcb5b;
-  border-radius: 12px;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #fdcb5b 0%, #ffd700 100%);
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
-  color: #374151;
+  margin-bottom: 2rem;
+  color: #1e3a8a;
+  box-shadow: 
+    0 4px 12px rgba(253, 203, 91, 0.3),
+    0 2px 6px rgba(253, 203, 91, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.value-icon::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fdcb5b, #ffd700, #fdcb5b);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  filter: blur(8px);
+}
+
+.value-card:hover .value-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 
+    0 6px 20px rgba(253, 203, 91, 0.5),
+    0 2px 8px rgba(253, 203, 91, 0.3);
+}
+
+.value-card:hover .value-icon::after {
+  opacity: 0.6;
+}
+
+.value-icon svg {
+  transition: transform 0.3s ease;
+}
+
+.value-card:hover .value-icon svg {
+  transform: scale(1.1);
 }
 
 .value-card-title {
-  font-size: 1.5rem;
+  font-size: 1.625rem;
   font-weight: 700;
   color: #1e3a8a;
-  margin: 0 0 1rem 0;
-  line-height: 1.4;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease;
+}
+
+.value-card:hover .value-card-title {
+  color: #1e40af;
 }
 
 .value-card-description {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.0625rem;
+  line-height: 1.75;
   color: #475569;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+.value-card:hover .value-card-description {
+  color: #334155;
 }
 
 /* Responsive для секції цінностей */
@@ -619,7 +792,14 @@
   }
 
   .value-card {
-    padding: 2rem;
+    padding: 2.5rem;
+    border-radius: 18px;
+  }
+
+  .value-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1.75rem;
   }
 
   .value-card-title {
@@ -638,18 +818,20 @@
   }
 
   .value-card {
-    padding: 1.75rem;
-    border-radius: 10px;
+    padding: 2rem;
+    border-radius: 16px;
   }
 
   .value-icon {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 1.25rem;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1.5rem;
+    border-radius: 14px;
   }
 
   .value-card-title {
     font-size: 1.25rem;
+    margin-bottom: 1rem;
   }
 
   .value-card-description {
@@ -681,11 +863,34 @@
 }
 
 .donation-title-underline {
-  width: 80px;
+  width: 100%;
+  max-width: 500px;
   height: 4px;
-  background-color: #fdcb5b;
   margin: 0 auto 1.5rem;
   border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 15%,
+    #fdcb5b 35%,
+    #ffd700 50%,
+    #fdcb5b 65%,
+    transparent 85%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: underlineMove 3s linear infinite;
+}
+
+@keyframes underlineMove {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .donation-description {
@@ -772,6 +977,19 @@
   color: #1e3a8a;
   box-sizing: border-box;
   transition: all 0.3s ease;
+}
+
+/* Прибираємо кнопки збільшення/зменшення для number input */
+.custom-amount-input::-webkit-outer-spin-button,
+.custom-amount-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.custom-amount-input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .custom-amount-input:focus,

@@ -5,21 +5,52 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #2a4a4a; /* dark teal-green background */
-  background-image: linear-gradient(135deg, #2a4a4a 0%, #1e3a3a 100%);
   padding: 2rem;
   overflow: hidden;
   box-sizing: border-box;
   margin: 0;
 }
 
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.header-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%; /* Фокус на лице та сонце */
+  display: block;
+}
+
+.header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(42, 74, 74, 0.7) 0%,
+    rgba(30, 58, 58, 0.8) 100%
+  );
+  z-index: 1;
+}
+
 .header-content {
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 900px;
+  max-width: 1000px;
   padding: 2rem;
   padding-bottom: 6rem; /* Extra padding for scroll arrow */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .header-title {
@@ -51,6 +82,7 @@
 
 .header-button {
   background-color: #fdcb5b;
+  background: linear-gradient(135deg, #fdcb5b 0%, #ffd700 50%, #fdcb5b 100%);
   color: #1a1a1a;
   border: none;
   border-radius: 8px;
@@ -59,17 +91,94 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(253, 203, 91, 0.4),
+    0 0 40px rgba(253, 203, 91, 0.3),
+    0 0 60px rgba(255, 215, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: sunGlow 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+.header-button > * {
+  position: relative;
+  z-index: 2;
+}
+
+.header-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: sunRotate 4s linear infinite;
+  pointer-events: none;
 }
 
 .header-button:hover {
-  background-color: #f5c052;
+  background: linear-gradient(135deg, #ffd700 0%, #fdcb5b 50%, #ffd700 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(253, 203, 91, 0.6),
+    0 0 50px rgba(253, 203, 91, 0.5),
+    0 0 80px rgba(255, 215, 0, 0.3);
+  animation: sunGlowHover 1.5s ease-in-out infinite;
 }
 
 .header-button:active {
   transform: translateY(0);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 0 15px rgba(253, 203, 91, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+@keyframes sunGlow {
+  0%, 100% {
+    box-shadow: 
+      0 4px 6px rgba(0, 0, 0, 0.2),
+      0 0 20px rgba(253, 203, 91, 0.4),
+      0 0 40px rgba(253, 203, 91, 0.3),
+      0 0 60px rgba(255, 215, 0, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 4px 6px rgba(0, 0, 0, 0.2),
+      0 0 30px rgba(253, 203, 91, 0.6),
+      0 0 50px rgba(253, 203, 91, 0.5),
+      0 0 80px rgba(255, 215, 0, 0.4);
+  }
+}
+
+@keyframes sunGlowHover {
+  0%, 100% {
+    box-shadow: 
+      0 6px 12px rgba(0, 0, 0, 0.3),
+      0 0 30px rgba(253, 203, 91, 0.6),
+      0 0 50px rgba(253, 203, 91, 0.5),
+      0 0 80px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 6px 12px rgba(0, 0, 0, 0.3),
+      0 0 40px rgba(253, 203, 91, 0.8),
+      0 0 70px rgba(253, 203, 91, 0.7),
+      0 0 100px rgba(255, 215, 0, 0.5);
+  }
+}
+
+@keyframes sunRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .scroll-arrow {
@@ -106,6 +215,14 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .header {
+    padding: 1.5rem;
+  }
+
+  .header-image {
+    object-position: center 25%; /* Фокус на лице та сонце для планшетів */
+  }
+  
   .header-title {
     font-size: 3rem;
   }
@@ -140,6 +257,10 @@
   .header-content {
     padding: 1rem;
     padding-bottom: 5rem; /* Extra padding for scroll arrow on mobile */
+  }
+
+  .header-image {
+    object-position: center 25%; /* Зміщення для мобільних пристроїв */
   }
   
   .scroll-arrow {

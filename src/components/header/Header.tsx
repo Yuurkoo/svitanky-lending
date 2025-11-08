@@ -1,8 +1,13 @@
 import './Header.css'
+import headerPhoto from '../../assets/header-photo.jpg'
 
 function Header() {
   return (
     <header className="header">
+      <div className="header-background">
+        <img src={headerPhoto} alt="Хлопець з сонцем" className="header-image" />
+        <div className="header-overlay"></div>
+      </div>
       <div className="header-content">
         <h1 className="header-title">СВІТАНКИ ЗАПАЛЮЄШ ТИ!</h1>
         <h2 className="header-subtitle">Подаруй дитині зі Сходу надію</h2>

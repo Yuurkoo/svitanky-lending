@@ -1,4 +1,5 @@
 import './Footer.css'
+import logo from "../../assets/logo.png"
 
 function Footer() {
   return (
@@ -8,15 +9,9 @@ function Footer() {
           {/* Ліва секція: Логотип та інформація */}
           <div className="footer-section footer-left">
             <div className="footer-logo">
-              <div className="logo-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="4" fill="currentColor"/>
-                  <path d="M12 2V6M12 18V22M2 12H6M18 12H22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-              </div>
+         
               <div className="logo-text">
-                <span className="logo-line1">СВІТАНКИ</span>
-                <span className="logo-line2">УКРАЇНИ</span>
+              <img src={logo} alt="Хлопець з сонцем" className="header-image" />
               </div>
             </div>
             <p className="footer-description">
@@ -37,7 +32,7 @@ function Footer() {
                 <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M22 6L12 13L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <a href="mailto:info@svitanky.org.ua" className="contact-link">info@svitanky.org.ua</a>
+              <a href="mailto:info@svitanky.ua" className="contact-link">info@svitanky.org.ua</a>
             </div>
             <div className="contact-item">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

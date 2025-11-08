@@ -1,6 +1,6 @@
 .footer {
   width: 100%;
-  background-color: #2a4a4a;
+  background-color: #1B5D8D;
   color: #ffffff;
   padding: 3rem 2rem 1.5rem;
   box-sizing: border-box;
@@ -25,14 +25,8 @@
 
 /* Ліва секція: Логотип */
 .footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background-color: #ffffff;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
   margin-bottom: 1.5rem;
-  width: fit-content;
+  max-width: 200px;
 }
 
 .logo-icon {
@@ -124,7 +118,7 @@
 .social-button {
   width: 48px;
   height: 48px;
-  background-color: #1e3a3a;
+  background-color: #3b7caa;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -136,7 +130,7 @@
 }
 
 .social-button:hover {
-  background-color: #2a4a4a;
+  background-color: #f7f7f7;
   transform: translateY(-2px);
   border-color: rgba(255, 255, 255, 0.3);
 }

@@ -1,7 +1,20 @@
+import { useEffect } from 'react'
 import './Header.css'
 import headerPhoto from '../../assets/header-photo.jpg'
 
 function Header() {
+  useEffect(() => {
+    // Додаємо клас visible для анімації появи при завантаженні
+    const timer = setTimeout(() => {
+      const elements = document.querySelectorAll('.header-title, .header-subtitle, .header-text, .header-button, .scroll-arrow')
+      elements.forEach((element) => {
+        element.classList.add('visible')
+      })
+    }, 100)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <header className="header">
       <div className="header-background">

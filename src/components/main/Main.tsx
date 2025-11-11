@@ -25,6 +25,43 @@ function Main() {
     return () => clearInterval(timer)
   }, [])
 
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible')
+        }
+      })
+    }, observerOptions)
+
+    // Спостерігаємо за всіма елементами, які потребують анімації
+    const animatedElements = document.querySelectorAll(`
+      .about-card,
+      .about-title,
+      .slider-container,
+      .home-block,
+      .fundraising-title,
+      .fundraising-subtitle,
+      .fundraising-card,
+      .values-title,
+      .value-card,
+      .donation-title,
+      .donation-description,
+      .donation-card
+    `)
+    
+    animatedElements.forEach((element) => observer.observe(element))
+
+    return () => {
+      animatedElements.forEach((element) => observer.unobserve(element))
+    }
+  }, [])
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % images.length)
   }
@@ -41,7 +78,7 @@ function Main() {
     <>
     <section className="about-section">
       <div className="about-container">
-        <h2 className="about-title">Хто ми? Спільнота, що стає домом.</h2>
+        <h2 className="about-title">Хто ми? Спільнота, що стає домом</h2>
         
         <div className="slider-container">
           <div className="slider-wrapper">
@@ -81,16 +118,22 @@ function Main() {
           </div>
         </div>
 
-        <div className="about-text">
-          <p>
-            «Світанки України» — це не просто організація. Це спільнота, яка збирає дітей і молодь зі Сходу України, даруючи їм простір для дружби, розвитку й духовного зростання.
-          </p>
-          <p>
-            Наша історія почалася в селі Муратове на Луганщині. Через війну ми були змушені переїжджати: Покровськ, Добропілля... аж доки не знайшли новий дім у самому серці України — місті Верхньодніпровську.
-          </p>
-          <p>
-            Тут ми отримали будівлю колишньої ораторії, в якій колись жив владика Андрій Сапеляк. Ми хочемо вдихнути в неї нове життя і зробити це місце справжнім домом для дітей, які втратили все.
-          </p>
+        <div className="about-cards">
+          <div className="about-card about-card-left">
+            <p>
+              «Світанки України» — це не просто організація. Це спільнота, яка збирає дітей і молодь зі Сходу України, даруючи їм простір для дружби, розвитку й духовного зростання.
+            </p>
+          </div>
+          <div className="about-card about-card-right">
+            <p>
+              Наша історія почалася в селі Муратове на Луганщині. Через війну ми були змушені переїжджати: Покровськ, Добропілля... аж доки не знайшли новий дім у самому серці України — місті Верхньодніпровську.
+            </p>
+          </div>
+          <div className="about-card about-card-left">
+            <p>
+              Тут ми отримали будівлю колишньої ораторії, в якій колись жив владика Андрій Сапеляк. Ми хочемо вдихнути в неї нове життя і зробити це місце справжнім домом для дітей, які втратили все.
+            </p>
+          </div>
         </div>
 
         <div className="home-block">

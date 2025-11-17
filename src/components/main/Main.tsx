@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react'
 import './Main.css'
+import Modal from '../modal/Modal'
+
+interface ModalData {
+  title: string
+  slides: Array<{ image: string; title?: string; description?: string }>
+  description: string[]
+  menuPoints: string[]
+}
 
 // Placeholder images - замініть на реальні шляхи до фото
 // Ви можете додати фото в папку src/assets/images/ і імпортувати їх тут
@@ -16,6 +24,8 @@ function Main() {
   const [customAmount, setCustomAmount] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalData, setModalData] = useState<ModalData | null>(null)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -72,6 +82,157 @@ function Main() {
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index)
+  }
+
+  // Дані для модальних вікон
+  const modalDataMap: Record<string, ModalData> = {
+    weekends: {
+      title: 'Світанкові Вікенди',
+      slides: [
+        {
+          image: 'https://via.placeholder.com/1200x600/2a4a4a/ffffff?text=Зустріч+на+вихідних',
+          title: 'Регулярні зустрічі',
+          description: 'Щомісячні заходи для дітей з усієї України'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/66b2ff/ffffff?text=Майстер-класи',
+          title: 'Творчість та розвиток',
+          description: 'Майстер-класи, ігри та навчальні програми'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/1e3a3a/ffffff?text=Спорт+та+активності',
+          title: 'Спортивні змагання',
+          description: 'Командні ігри та фізичні активності для здорового розвитку'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/fdcb5b/1e3a8a?text=Духовне+зростання',
+          title: 'Духовне збагачення',
+          description: 'Молитва, спільні трапези та духовні практики'
+        }
+      ],
+      description: [
+        'Програма "Світанкові Вікенди" — це регулярні зустрічі на вихідних для дітей з різних куточків України. Це унікальна можливість для дітей знайти нових друзів, відновити сили та отримати важливий досвід спільноти.',
+        'Кожна зустріч триває два дні і включає в себе широкий спектр активностей: від молитви та духовних практик до творчих майстер-класів, спортивних змагань та добрих справ. Діти мають можливість відпочити від повсякденних турбот, зосередитися на своєму розвитку та знайти підтримку серед однолітків.',
+        'Ми розуміємо, що багато дітей зазнали травматичних подій через війну. Тому наша програма створює безпечний простір, де кожна дитина може почувати себе важливою та цінною, де її голос чути, а потреби задоволені.'
+      ],
+      menuPoints: [
+        'Молитва та духовні практики',
+        'Творчі майстер-класи',
+        'Спортивні змагання та активності',
+        'Навчальні програми та семінари',
+        'Спільні трапези та соціалізація',
+        'Добрі справи та волонтерство',
+        'Розваги та ігри',
+        'Індивідуальна підтримка та консультації'
+      ]
+    },
+    house: {
+      title: 'Облаштування дому Світанків',
+      slides: [
+        {
+          image: 'https://via.placeholder.com/1200x600/2a4a4a/ffffff?text=Ремонт+приміщень',
+          title: 'Повноцінний ремонт',
+          description: 'Створення безпечного та комфортного простору для дітей'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/66b2ff/ffffff?text=Спальні+кімнати',
+          title: 'Спальні кімнати',
+          description: 'Затишні кімнати для відпочинку та відновлення сил'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/1e3a3a/ffffff?text=Навчальні+простори',
+          title: 'Навчальні зони',
+          description: 'Сучасні приміщення для занять та навчання'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/fdcb5b/1e3a8a?text=Загальні+зони',
+          title: 'Загальні зони',
+          description: 'Великі зали для спільних заходів та трапез'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/2a4a4a/ffffff?text=Кухня+та+їдальня',
+          title: 'Кухня та їдальня',
+          description: 'Повноцінне облаштування для приготування та прийняття їжі'
+        }
+      ],
+      description: [
+        'Проект облаштування дому Світанків спрямований на створення повноцінного житлового та навчального простору для дітей. Будинок колишньої ораторії потребує комплексного ремонту та облаштування, щоб стати справжнім домом для тих, хто втратив свій.',
+        'Ми плануємо облаштувати комфортні спальні кімнати, де кожна дитина матиме своє особисте простір для відпочинку. Навчальні зони будуть оснащені сучасним обладнанням та матеріалами для занять. Великі загальні зали дозволять проводити спільні заходи, молитви та трапези.',
+        'Важливим аспектом є створення безпечного та затишного середовища, де діти почуватимуть себе як вдома. Кожен куточок будинку буде наповнений теплом та турботою про найважливіші потреби наших дітей.'
+      ],
+      menuPoints: [
+        'Ремонт всіх приміщень',
+        'Облаштування спальних кімнат',
+        'Створення навчальних просторів',
+        'Облаштування кухні та їдальні',
+        'Встановлення систем опалення',
+        'Електрифікація та освітлення',
+        'Сантехніка та водопостачання',
+        'Меблювання та декоративне оформлення',
+        'Безпека та система контролю доступу',
+        'Благоустрій території'
+      ]
+    },
+    camps: {
+      title: 'Організація зимових/літніх таборів',
+      slides: [
+        {
+          image: 'https://via.placeholder.com/1200x600/2a4a4a/ffffff?text=Літній+табір',
+          title: 'Літні табори',
+          description: 'Відпочинок на природі з навчально-виховними програмами'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/66b2ff/ffffff?text=Зимовий+табір',
+          title: 'Зимові табори',
+          description: 'Активний відпочинок взимку з розвиваючими заняттями'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/1e3a3a/ffffff?text=Лідерська+підготовка',
+          title: 'Лідерські програми',
+          description: 'Розвиток лідерських якостей та навичок управління'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/fdcb5b/1e3a8a?text=Спортивні+активності',
+          title: 'Спорт та активності',
+          description: 'Туризм, спортивні ігри та командна робота'
+        },
+        {
+          image: 'https://via.placeholder.com/1200x600/2a4a4a/ffffff?text=Творчі+майстер-класи',
+          title: 'Творчість',
+          description: 'Майстер-класи з різних видів мистецтва та ремесел'
+        }
+      ],
+      description: [
+        'Табори "Світанки" — це унікальні навчально-виховні програми для дітей різного віку, які поєднують активний відпочинок на природі з духовним зростанням та розвитком лідерських якостей.',
+        'Літні табори проходять на свіжому повітрі та дозволяють дітям насолоджуватися природою, займатися спортом, брати участь у творчих майстер-класах та спільних трапезах. Зимові табори включають активності на відкритому повітрі та розвиваючі програми в приміщенні.',
+        'Програми розраховані на розвиток комунікативних навичок, лідерських якостей та самостійності. Діти вчаться працювати в команді, брати на себе відповідальність та допомагати один одному. Кожен табір залишає незабутні спогади та корисний досвід, який допомагає дітям зростати як особистостям.'
+      ],
+      menuPoints: [
+        'Навчально-виховні програми',
+        'Розвиток лідерських якостей',
+        'Творчі майстер-класи',
+        'Спортивні активності та ігри',
+        'Туризм та екскурсії',
+        'Молитва та духовні практики',
+        'Спільні трапези',
+        'Командні проєкти',
+        'Весільні та святкові заходи',
+        'Індивідуальна підтримка та менторство'
+      ]
+    }
+  }
+
+  const handleCardClick = (cardId: string) => {
+    const data = modalDataMap[cardId]
+    if (data) {
+      setModalData(data)
+      setIsModalOpen(true)
+    }
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setModalData(null)
   }
 
   return (
@@ -157,7 +318,7 @@ function Main() {
           
           <div className="fundraising-cards">
             {/* Картка 1: Світанкові Вікенди */}
-            <div className="fundraising-card">
+            <div className="fundraising-card" onClick={() => handleCardClick('weekends')}>
               <div className="card-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8 2V6M16 2V6M3 10H21M5 4H19C20.1046 4 21 4.89543 21 6V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V6C3 4.89543 3.89543 4 5 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -185,7 +346,7 @@ function Main() {
             </div>
 
             {/* Картка 2: Облаштування дому Світанків */}
-            <div className="fundraising-card">
+            <div className="fundraising-card" onClick={() => handleCardClick('house')}>
               <div className="card-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21H9Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -213,7 +374,7 @@ function Main() {
             </div>
 
             {/* Картка 3: Організація зимових/літніх таборів */}
-            <div className="fundraising-card">
+            <div className="fundraising-card" onClick={() => handleCardClick('camps')}>
               <div className="card-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -428,6 +589,8 @@ function Main() {
           </div>
         </div>
       </section>
+
+      <Modal isOpen={isModalOpen} onClose={closeModal} data={modalData} />
     </>
   )
 }
